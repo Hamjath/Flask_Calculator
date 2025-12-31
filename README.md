@@ -29,8 +29,8 @@ The calculator features a sleek, modern interface with:
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/flask-session-calculator.git
-cd flask-session-calculator
+git clone https://github.com/Hamjath/Flask_Calculator.git
+cd Flask_Calculator
 ```
 
 2. Create a virtual environment (recommended):
