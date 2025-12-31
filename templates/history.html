@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}History{% endblock %}
+
+{% block content %}
+<div class="container mt-4 text-light">
+
+    <h3>Calculation History</h3>
+
+    {% if history %}
+    <ul class="list-group list-group-flush my-3">
+        {% for item in history|reverse %}
+        <li class="list-group-item bg-dark text-success">
+            {{ item }}
+        </li>
+        {% endfor %}
+    </ul>
+
+    <a href="{{ url_for('clear_history') }}" class="btn btn-warning">
+        Clear History
+    </a>
+    {% else %}
+    <p class="text-muted">No calculations yet.</p>
+    {% endif %}
+
+</div>
+{% endblock %}

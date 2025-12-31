@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block title %}Session Calculator{% endblock %}
+
+{% block content %}
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+<div class="d-flex justify-content-center mt-4">
+    <div style="max-width: 500px; width: 100%;">
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }} alert-dismissible fade show shadow-sm" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+  {% endif %}
+{% endwith %}
+
+
+
+
+
+
+<div class="d-flex justify-content-center align-items-center min-vh-100"
+     style="background: linear-gradient(135deg, #1c1c2b, #3d3d5a); padding-top: 80px;">
+
+    <div class="calculator p-4 rounded-5 shadow-lg"
+         style="
+         width: 360px;
+         backdrop-filter: blur(15px);
+         background: rgba(255,255,255,0.15);
+         border: 1px solid rgba(255,255,255,0.2);
+         box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+     ">
+
+
+        <!-- Memory indicator -->
+        {% if session.memory != 0 %}
+        <div class="text-info small mb-2 text-end fw-bold" style="text-shadow: 0 0 4px #0ff;">
+            M: {{ session.memory }}
+        </div>
+        {% endif %}
+
+        <!-- Display -->
+        <div class="form-control mb-3 display text-end text-light fs-3 fw-bold"
+             style="background: rgba(0,0,0,0.6); border-radius: 16px; height: 80px; box-shadow: inset 0 0 10px #0ff;">
+            {{ expression if expression else "0" }}
+        </div>
+
+        <!-- Buttons -->
+        <form method="post">
+            <div class="row g-3">
+
+                {% for btn in [
+                'MC','MR','M+','/',
+                '7','8','9','*',
+                '4','5','6','-',
+                '1','2','3','+',
+                '0','.','=','C'
+                ] %}
+                <div class="col-3">
+                    <button name="button"
+                            value="{{ btn }}"
+                            class="btn w-100 fw-bold"
+                            style="
+                                border-radius: 16px;
+                                font-size: 1.25rem;
+                                box-shadow: 0 4px 8px rgba(0,255,255,0.2);
+                                color: #fff;
+                                {% if btn in ['M+','MR','MC'] %}background: #0ff; color:#000;
+                                {% elif btn in '+-*/C' %}background: #ff9800;
+                                {% elif btn == '=' %}background: #4caf50;
+                                {% else %}background: rgba(255,255,255,0.15);{% endif %}">
+                        {{ btn }}
+                    </button>
+                </div>
+                {% endfor %}
+
+            </div>
+        </form>
+
+        <!-- History -->
+        {% if history %}
+        <hr class="text-white-50 my-3">
+        <div class="text-light">
+            <h6 class="fw-bold">History</h6>
+            <ul class="list-group list-group-flush">
+                {% for item in history|reverse %}
+                <li class="list-group-item" style="background: rgba(0,0,0,0.5); color: #0ff;">
+                    {{ item }}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}
