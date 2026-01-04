@@ -11,7 +11,7 @@ app.config.update(
 )
 
 
-app.permanent_session_lifetime = timedelta(seconds=2)
+app.permanent_session_lifetime = timedelta(minutes=5)
 
 
 # ---------------- LOGIN ----------------
