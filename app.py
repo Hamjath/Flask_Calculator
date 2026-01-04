@@ -4,7 +4,14 @@ from datetime import timedelta
 
 app = Flask(__name__)
 app.secret_key = "super-secret-key"  # change in real apps
-app.permanent_session_lifetime = timedelta(seconds=30)
+
+app.config.update(
+    SESSION_COOKIE_SAMESITE="Lax",
+    SESSION_COOKIE_SECURE=True
+)
+
+
+app.permanent_session_lifetime = timedelta(seconds=2)
 
 
 # ---------------- LOGIN ----------------
